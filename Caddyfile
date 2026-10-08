@@ -1,24 +1,33 @@
-# Caddy config for the FHSMS web container.
-# {$VAR:default} placeholders are filled from environment variables at start-up.
+# Caddy configuration for the FHSMS frontend
+
 {$SITE_ADDRESS::80} {
 	encode zstd gzip
 
-	# Backend API + health check -> API container
+	# Backend API
 	handle /api/* {
-		reverse_proxy {$API_UPSTREAM:api:8080}
-	}
-	handle /health {
-		reverse_proxy {$API_UPSTREAM:api:8080}
+		reverse_proxy https://agrilinkethio.app.aletcloud.com
 	}
 
-	# Everything else -> the React app (with SPA fallback for client-side routes)
+	# Backend health check
+	handle /health {
+		reverse_proxy https://agrilinkethio.app.aletcloud.com
+	}
+
+	# React/Vite frontend
 	handle {
 		root * /srv
+
+		# Don't cache application entry/config files
 		@nocache path /index.html /sw.js /registerSW.js /config.js /manifest.webmanifest
 		header @nocache Cache-Control "no-cache"
+
+		# Cache hashed Vite assets
 		@hashed path /assets/*
 		header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+		# React SPA fallback
 		try_files {path} /index.html
+
 		file_server
 	}
 }
