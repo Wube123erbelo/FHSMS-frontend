@@ -9,5 +9,5 @@
 //                   domain (e.g. website on cPanel shared hosting, API on a VPS).
 //                   Remember to add this site's URL to ALLOWED_ORIGINS on the API.
 window.__FHSMS_CONFIG__ = {
-  apiBaseUrl: ""
+  apiBaseUrl: "https://agrilinkethio.app.aletcloud.com/api"
 };
