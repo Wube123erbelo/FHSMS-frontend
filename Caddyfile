@@ -5,12 +5,12 @@
 
 	# Backend API
 	handle /api/* {
-		reverse_proxy https://agrilinkethio.app.aletcloud.com
+		reverse_proxy https://agrilinkethiopia.app.aletcloud.com
 	}
 
 	# Backend health check
 	handle /health {
-		reverse_proxy https://agrilinkethio.app.aletcloud.com
+		reverse_proxy https://agrilinkethiopia.app.aletcloud.com
 	}
 
 	# React/Vite frontend
